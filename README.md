@@ -1,4 +1,4 @@
-# object_oriented_programming1
+# Object_Oriented_Orogramming
 implements observer pattern
 
 ## Observer Design Pattern
