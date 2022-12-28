@@ -35,7 +35,7 @@ public class GroupAdmin implements Sender
     }
 
     /**
-     * we insert a string into the group admin's UndaobleStringBuilder
+     * we insert a string into the group admin's UndaobleStringBuilder then update observers
      * @param offset - same as UndaobleStringBuilder
      * @param obj - same as UndoableStringBuilder
      */
@@ -43,20 +43,22 @@ public class GroupAdmin implements Sender
     public void insert(int offset, String obj)
     {
         ustb.insert(offset,obj);
+        updateObserervers();
     }
 
     /**
-     * we append a string to the group admin's UndoableStringBuilder
+     * we append a string to the group admin's UndoableStringBuilder then update observers
      * @param obj - same as UndoableStringBuilder
      */
     @Override
     public void append(String obj)
     {
         ustb.append(obj);
+        updateObserervers();
     }
 
     /**
-     * we delete from a starting index to an ending index
+     * we delete from a starting index to an ending index then update observers
      * @param start - same as UndoableStringBuilder
      * @param end - same as UndoableStringBuilder
      */
@@ -64,14 +66,28 @@ public class GroupAdmin implements Sender
     public void delete(int start, int end)
     {
         ustb.delete(start,end);
+        updateObserervers();
     }
 
     /**
-     * we undo the previous action done to the group admin's UndoableStringBuilder
+     * we undo the previous action done to the group admin's UndoableStringBuilder then update observers
      */
     @Override
     public void undo()
     {
         ustb.undo();
+        updateObserervers();
+    }
+
+    /**
+     * we call this function after every change, to update all the observers of the change in the
+     * UndoableStringBuilder
+     */
+    public void updateObserervers()
+    {
+        for ( Member member : observers)
+        {
+            member.update(ustb);
+        }
     }
 }
